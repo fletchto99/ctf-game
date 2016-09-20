@@ -1,0 +1,9 @@
+{
+    "secret": "<some secret>",
+    "name": "ctf-game",
+    "resave": false,
+    "saveUninitialized": true,
+    "cookie": {
+        "secure": false
+    }
+}

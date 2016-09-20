@@ -1,0 +1,7 @@
+{
+    "game_port": 1336,
+    "game_url": "play.ctf-game.xyz",
+    "portal_url": "portal.ctf-game.xyz",
+    "portal_port": 1337,
+    "developer_mode": true
+}

@@ -1,0 +1,4 @@
+game/node_modules/
+game/config/database.json
+game/config/app.json
+game/config/session.json
