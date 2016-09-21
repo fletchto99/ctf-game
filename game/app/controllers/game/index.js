@@ -11,15 +11,26 @@ router.use('/', require('./unauthenticated/welcome'));
 router.get('/dashboard', function (request, response) {
     console.log(request.query.page);
     if (request.query.page == 'dashboard') {
-        require('./authenticated/dashboard')(request, response);
+        require('./authenticated/dashboard').get(request, response);
     } else if (request.query.page == 'profile') {
-        require('./authenticated/profile')(request, response);
+        require('./authenticated/profile').get(request, response);
     } else if (request.query.page == 'messenger') {
-        require('./authenticated/messenger')(request, response);
+        require('./authenticated/messenger').get(request, response);
     } else if (request.query.page == 'logout') {
-        require('./authenticated/logout')(request, response);
+        require('./authenticated/logout').get(request, response);
     } else {
-        require('./authenticated/lfi-exploit')(request, response);
+        require('./authenticated/lfi-exploit').get(request, response);
+    }
+});
+
+router.post('/dashboard', function (request, response) {
+    console.log(request.query.page);
+    if (request.query.page == 'profile') {
+        require('./authenticated/profile').post(request, response);
+    } else if (request.query.page == 'messenger') {
+        require('./authenticated/messenger').post(request, response);
+    } else {
+        //TODO: Method not accepted
     }
 });
 

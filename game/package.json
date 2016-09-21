@@ -21,7 +21,8 @@
     "morgan": "^1.7.0",
     "pg": "^6.1.0",
     "promise": "^7.1.1",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "webshot": "^0.18.0"
   },
   "repository": {
     "type": "git",

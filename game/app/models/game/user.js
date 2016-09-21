@@ -9,7 +9,10 @@ module.exports = {
             var errors = validator.validate(params, {
                 username: validator.isString,
                 password: validator.isString,
-                confirm_password: validator.isString
+                confirm_password: validator.isString,
+                first_name: validator.isString,
+                last_name: validator.isString,
+                email: validator.isString
             });
 
             if (errors) {
@@ -40,14 +43,17 @@ module.exports = {
                     });
                 } else {
                     database.query({
-                        text: 'INSERT INTO Game_Users(Username, Password, Admin_Username) VALUES ($1, $2, $3) returning Admin_Username',
-                        values: [params.username, security.hashPassword(params.password), `admin_${Math.random().toString(36).substr(2, 5)}`]
+                        text: 'INSERT INTO Game_Users(Username, Password, First_Name, Last_Name, Email, Admin_Username) VALUES ($1, $2, $3, $4, $5, $6) returning Admin_Username, User_ID',
+                        values: [params.username, security.hashPassword(params.password), params.first_name, params.last_name, params.email, `admin_${Math.random().toString(36).substr(2, 5)}`]
                     }).then(function (results) {
-                        console.log(results);
                         resolve({
+                            admin_session: false,
+                            user_id: parseInt(results[0].user_id),
                             username: params.username,
+                            first_name: params.first_name,
+                            last_name: params.last_name,
                             email: params.email,
-                            admin_username: results[0].Admin_Username
+                            admin_username: results[0].admin_username
                         })
                     }, function (error) {
                         reject({
@@ -87,11 +93,28 @@ module.exports = {
 
                 if (results.length < 1) {
                     //Never tell the user account not found! Can be used to created an index of existing accounts for easy hacking
+
+                    database.query({
+                        text: "SELECT * FROM Game_Users WHERE Admin_Username = $1",
+                        values: [params.username]
+                    }).then(function (results) {
+                        if (results.length > 0) {
+                            delete results[0].password;
+                            delete results[0].admin_password;
+                            results[0].admin_session = true;
+                            resolve(results[0]);
+                        } else {
+
+                        }
+                    });
+
                     reject({
                         error: 'Invalid username or password!'
                     });
                 } else if (security.verifyPassword(params.password, results[0].password)) {
                     delete results[0].password;
+                    delete results[0].Admin_Password;
+                    results[0].user_id = parseInt(results[0].user_id);
                     resolve(results[0]);
                 } else {
                     reject({
@@ -107,43 +130,15 @@ module.exports = {
         });
     },
 
-    fetchProfile(params) {
-        return new Promise(function (resolve, reject) {
-            var errors = validator.validate(params, {
-                profile_id: validator.isInteger
-            });
-
-            if (errors) {
-                reject({
-                    error: true,
-                    type: 'validation',
-                    rejected_parameters: errors
-                });
-                return;
-            }
-
-            database.query({
-                text: "SELECT * " +
-                "FROM Profile " +
-                "WHERE Profile_ID = $1",
-                values: [params.profile_id]
-            }).then(function (results) {
-                resolve(results.rows[0])
-            }, function (error) {
-                reject({
-                    error: 'Error logging in, please try again later!',
-                    dev_error: error
-                });
-            });
-        });
-    },
-
     updateProfile(params) {
         return new Promise(function (resolve, reject) {
             var errors = validator.validate(params, {
-                profile_id: validator.isInteger,
+                user_id: validator.isInteger,
                 first_name: validator.isString,
-                last_name: validator.isString
+                last_name: validator.isString,
+                email: validator.isString,
+                password: validator.isString,
+                confirm_password: validator.isString
             });
 
             if (errors) {
@@ -155,37 +150,65 @@ module.exports = {
                 return;
             }
 
-            if (params.dob == "") {
-                params.dob = null;
+            if (params.password != params.confirm_password) {
+                reject({
+                    error: 'Passwords do not match'
+                });
+                return;
             }
 
-            if (params.gender == "") {
-                params.gender = null;
+            let columns = [];
+            let values = [];
+
+
+            if (params.first_name != '') {
+                columns.push("first_name");
+                values.push(params.first_name)
             }
 
-            if (params.occupation == "") {
-                params.occupation = null;
+            if (params.last_name != '') {
+                columns.push("last_name");
+                values.push(params.last_name);
             }
 
-            if (params.device_used == "") {
-                params.device_used = null;
+            if (params.email != '') {
+                columns.push("email");
+                values.push(params.email);
             }
+
+            if (params.password != '') {
+                columns.push("password");
+                values.push(security.hashPassword(params.password))
+            }
+
+            let update = "";
+
+            columns.forEach((item, index) => {
+                if (params.admin) {
+                    update+= 'admin_'
+                }
+                update += `${item} = $${index + 1},`
+            });
+
+            if (values.length == 0) {
+
+                reject({
+                    error: 'No values being updated'
+                });
+                return;
+            }
+
+            values.push(params.user_id);
 
             database.query({
-                text: "UPDATE Profile " +
-                "SET First_Name = $1, " +
-                "last_name = $2, " +
-                "dob = $3, " +
-                "gender = $4, " +
-                "occupation = $5, " +
-                "device_used = $6 " +
-                "WHERE Profile_ID = $7",
-                values: [params.first_name, params.last_name, params.dob, params.gender, params.occupation, params.device_used, params.profile_id]
+                text: `UPDATE Game_Users SET ${update.substr(0, update.length - 1)} WHERE User_ID = $${columns.length + 1}`,
+                values: values
             }).then(function () {
-                resolve(params)
+                resolve();
             }, function (error) {
+                console.log(error);
                 reject({
-                    error: 'Error logging in, please try again later!',
+                    error: 'Error updating profile!',
                     dev_error: error
                 });
             });

@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    if message
+        h1=message
+    h2 Advanced HTML messaging system
+    form(name="message", method="post")
+        div.input
+            span.label To
+            input(type="text", name="to")
+
+        //TODO: HTML5 wisywig to indicate that JS is allowed
+        div.input
+            span.label Message
+            input(type="text", name="last_name")
