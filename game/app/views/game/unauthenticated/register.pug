@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    if error
+        h1=error
+    form(name="register", method="post")
+        div.input
+            span.label Username
+            input(type="text", name="username")
+        div.input
+            span.label Password
+            input(type="password", name="password")
+        div.input
+            span.label Confirm Password
+            input(type="password", name="confirm_password")
+        div.input
+            span.label Employee access code
+            input(type="text", name="employee_access_code")
+        div.actions
+            input(type="submit", value="Register")

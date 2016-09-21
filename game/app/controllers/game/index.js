@@ -1,28 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
-/**
- * Open API endpoints
- */
+
 router.use('/robots.txt', require('./unauthenticated/robots'));
-router.use('/secure-employee-referral-code.txt', require('./unauthenticated/robots'));
+router.use('/secure-employee-referral-code.txt', require('./unauthenticated/refferal-codes'));
 router.use('/register', require('./unauthenticated/register'));
 router.use('/login', require('./unauthenticated/login'));
 router.use('/', require('./unauthenticated/welcome'));
 
-router.get('/dashboard', function (request, response, next) {
+router.get('/dashboard', function (request, response) {
+    console.log(request.query.page);
     if (request.query.page == 'dashboard') {
-        router.use('/dashboard', require('./authenticated/dashboard'))
+        require('./authenticated/dashboard')(request, response);
     } else if (request.query.page == 'profile') {
-        router.use('/dashboard', require('./authenticated/profile'))
+        require('./authenticated/profile')(request, response);
     } else if (request.query.page == 'messenger') {
-        router.use('/dashboard', require('./authenticated/messenger'))
-    } else if (request.query.page == 'messenger') {
-        router.use('/dashboard', require('./authenticated/logout'))
+        require('./authenticated/messenger')(request, response);
+    } else if (request.query.page == 'logout') {
+        require('./authenticated/logout')(request, response);
     } else {
-        router.use('/dashboard', require('./authenticated/lfi-exploit'))
+        require('./authenticated/lfi-exploit')(request, response);
     }
-    next();
 });
 
 module.exports = router;

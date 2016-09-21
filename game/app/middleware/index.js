@@ -13,7 +13,9 @@ sessionObj.store = new pgSession({
     tableName: 'session'
 });
 
-router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({
+    extended: true
+}));
 router.use(session(sessionObj));
 router.use('/dashboard', require('./auth'));
 

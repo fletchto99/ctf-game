@@ -2,7 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 router.get('', function (req, res) {
-    res.render('unauthenticated/welcome');
+    if (req.session.user) {
+        res.redirect('/dashboard?page=dashboard');
+    } else {
+        res.render('unauthenticated/welcome');
+    }
+
 });
 
 module.exports = router;
