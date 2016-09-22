@@ -9,7 +9,6 @@ router.use('/login', require('./unauthenticated/login'));
 router.use('/', require('./unauthenticated/welcome'));
 
 router.get('/dashboard', function (request, response) {
-    console.log(request.query.page);
     if (request.query.page == 'dashboard') {
         require('./authenticated/dashboard').get(request, response);
     } else if (request.query.page == 'profile') {
@@ -24,7 +23,6 @@ router.get('/dashboard', function (request, response) {
 });
 
 router.post('/dashboard', function (request, response) {
-    console.log(request.query.page);
     if (request.query.page == 'profile') {
         require('./authenticated/profile').post(request, response);
     } else if (request.query.page == 'messenger') {

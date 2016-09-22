@@ -18,7 +18,6 @@ router.post('', function(req, res) {
         });
     } else {
         user.register(req.body).then(function (result) {
-            console.log(result);
             req.session.user = result;
             res.redirect('/dashboard?page=dashboard');
         }, function (error) {

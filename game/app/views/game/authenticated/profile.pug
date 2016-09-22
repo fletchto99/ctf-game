@@ -1,6 +1,6 @@
-extends ../layout
+extends ../layout_auth
 
-block content
+append content
     if error
         h1=error
     form(name="profile", method="post")

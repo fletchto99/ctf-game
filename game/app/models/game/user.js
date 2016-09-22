@@ -90,30 +90,26 @@ module.exports = {
                 text: "SELECT * FROM Game_Users WHERE Username = $1",
                 values: [params.username]
             }).then(function (results) {
-
                 if (results.length < 1) {
                     //Never tell the user account not found! Can be used to created an index of existing accounts for easy hacking
-
                     database.query({
                         text: "SELECT * FROM Game_Users WHERE Admin_Username = $1",
                         values: [params.username]
                     }).then(function (results) {
-                        if (results.length > 0) {
+                        if (results.length == 1 && security.verifyPassword(params.password, results[0].admin_password)) {
                             delete results[0].password;
                             delete results[0].admin_password;
                             results[0].admin_session = true;
                             resolve(results[0]);
                         } else {
-
+                            reject({
+                                error: 'Invalid username or password!'
+                            });
                         }
-                    });
-
-                    reject({
-                        error: 'Invalid username or password!'
                     });
                 } else if (security.verifyPassword(params.password, results[0].password)) {
                     delete results[0].password;
-                    delete results[0].Admin_Password;
+                    delete results[0].admin_password;
                     results[0].user_id = parseInt(results[0].user_id);
                     resolve(results[0]);
                 } else {
@@ -132,23 +128,6 @@ module.exports = {
 
     updateProfile(params) {
         return new Promise(function (resolve, reject) {
-            var errors = validator.validate(params, {
-                user_id: validator.isInteger,
-                first_name: validator.isString,
-                last_name: validator.isString,
-                email: validator.isString,
-                password: validator.isString,
-                confirm_password: validator.isString
-            });
-
-            if (errors) {
-                reject({
-                    error: true,
-                    type: 'validation',
-                    rejected_parameters: errors
-                });
-                return;
-            }
 
             if (params.password != params.confirm_password) {
                 reject({
@@ -160,23 +139,22 @@ module.exports = {
             let columns = [];
             let values = [];
 
-
-            if (params.first_name != '') {
+            if (params.first_name && params.first_name != '') {
                 columns.push("first_name");
                 values.push(params.first_name)
             }
 
-            if (params.last_name != '') {
+            if (params.last_name && params.last_name != '') {
                 columns.push("last_name");
                 values.push(params.last_name);
             }
 
-            if (params.email != '') {
+            if (params.email && params.email != '') {
                 columns.push("email");
                 values.push(params.email);
             }
 
-            if (params.password != '') {
+            if (params.password && params.password != '') {
                 columns.push("password");
                 values.push(security.hashPassword(params.password))
             }
@@ -206,7 +184,6 @@ module.exports = {
             }).then(function () {
                 resolve();
             }, function (error) {
-                console.log(error);
                 reject({
                     error: 'Error updating profile!',
                     dev_error: error

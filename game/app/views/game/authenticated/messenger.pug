@@ -1,6 +1,6 @@
-extends ../layout
+extends ../layout_auth
 
-block content
+append content
     if message
         h1=message
     h2 Advanced HTML messaging system
@@ -11,5 +11,7 @@ block content
 
         //TODO: HTML5 wisywig to indicate that JS is allowed
         div.input
-            span.label Message
-            input(type="text", name="last_name")
+            span.label Message -- Some html 5 wisywig to go here!
+            input(type="text", name="message")
+        div.actions
+            input(type="submit", value="Send")

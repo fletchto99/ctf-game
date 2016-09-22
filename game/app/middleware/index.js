@@ -6,6 +6,7 @@ const pgSession = require('connect-pg-simple')(session);
 const router = express.Router();
 const databaseConfig = require('../../config/database.json');
 const sessionObj = require('../../config/session.json');
+var cookieParser = require('cookie-parser');
 
 sessionObj.store = new pgSession({
     pg: pg,
@@ -16,6 +17,7 @@ sessionObj.store = new pgSession({
 router.use(bodyParser.urlencoded({
     extended: true
 }));
+router.use(cookieParser());
 router.use(session(sessionObj));
 router.use('/dashboard', require('./auth'));
 

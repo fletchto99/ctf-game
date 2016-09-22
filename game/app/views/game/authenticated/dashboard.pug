@@ -1,6 +1,6 @@
-extends ../layout
+extends ../layout_auth
 
-block content
+append content
     if admin_flag
-        h2 admin_flag
+        h2=admin_flag
     p Hello
