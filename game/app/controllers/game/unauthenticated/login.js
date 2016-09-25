@@ -13,7 +13,6 @@ router.post('', function (req, res) {
     } else {
         user.authenticate(req.body).then(function (result) {
             req.session.user = result;
-            console.log(req.session.user);
             res.redirect('/dashboard?page=dashboard')
         }, function (error) {
             res.render('unauthenticated/login', {

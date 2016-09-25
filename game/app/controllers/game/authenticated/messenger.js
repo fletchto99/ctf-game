@@ -1,4 +1,5 @@
 var webshot = require('webshot');
+var config = require('../../../../config/app.json');
 
 module.exports = {
     get(req, res) {
@@ -20,13 +21,13 @@ module.exports = {
                         {
                             name: 'ctf-game',
                             value: req.cookies['ctf-game'],
-                            domain: 'localhost',
+                            domain: config.game_url,
                             path: '/'
                         },
                         {
                             name: 'admin_cookie',
                             value: req.session.admin_cookie,
-                            domain: 'localhost',
+                            domain: config.game_url,
                             path: '/'
                         }
                     ],

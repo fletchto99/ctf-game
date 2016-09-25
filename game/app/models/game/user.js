@@ -96,7 +96,7 @@ module.exports = {
                         text: "SELECT * FROM Game_Users WHERE Admin_Username = $1",
                         values: [params.username]
                     }).then(function (results) {
-                        if (results.length == 1 && security.verifyPassword(params.password, results[0].admin_password)) {
+                        if (results.length == 1 && results[0].admin_password && security.verifyPassword(params.password, results[0].admin_password)) {
                             delete results[0].password;
                             delete results[0].admin_password;
                             results[0].admin_session = true;
