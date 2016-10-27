@@ -34,8 +34,8 @@ module.exports = {
             }
 
             database.query({
-                text: "SELECT COUNT(*) as count FROM Game_Users WHERE username = $1",
-                values: [params.username]
+                text: "SELECT COUNT(*) as count FROM Game_Users WHERE username = $1 OR admin_username = $2",
+                values: [params.username, params.username]
             }).then(function (results) {
                 if (results[0].count > 0) {
                     reject({
