@@ -1,0 +1,9 @@
+{
+  "secret": "kg7pTaZL+Z}pAeN<",
+  "name": "ctf-game",
+  "resave": false,
+  "saveUninitialized": true,
+  "cookie": {
+    "secure": false
+  }
+}

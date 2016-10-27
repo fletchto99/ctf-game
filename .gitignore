@@ -3,3 +3,4 @@ game/config/database.json
 game/config/app.json
 game/config/session.json
 .idea
+challenge 1/game/node_modules/

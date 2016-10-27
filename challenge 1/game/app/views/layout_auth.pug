@@ -1,0 +1,23 @@
+extends layout
+
+
+
+append nav
+    -var selected = 'home'; //default
+    -var menu = { 'home': '/home', 'blog': '/blog', 'contact': '/contact' };
+    ul
+        each val, key in menu
+            li
+                if selected === key
+                    a.selected(href=val, title=key)= key
+                else
+                    a(href=val, title=key)= key
+
+block content
+    a(class='button', href='/dashboard?page=dashboard') Dashboard
+    = '\n'
+    a(class='button', href='/dashboard?page=profile') Profile
+    = '\n'
+    a(class='button', href='/dashboard?page=messenger') Messenger
+    = '\n'
+    a(class='button', href='/dashboard?page=logout') Logout

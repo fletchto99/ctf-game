@@ -1,0 +1,15 @@
+extends ../layout_reg
+
+append content
+    if error
+        h1=error
+    form(name="login", method="post")
+        div.form-group
+            div.input
+                label(for="username") Username
+                input.form-control(type="text", name="username", id="username")
+        div.form-group
+            div.input
+                label(for="password") Password
+                input.form-control(type="password", name="password", id="password")
+        button.btn.btn-primary(type="submit") Login
