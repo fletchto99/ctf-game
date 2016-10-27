@@ -2,6 +2,6 @@ flag{I_like_caesar_salad}
 
 becomes
 
-synt{V_yvxr_pnrfne_fnynq}
+fsli_a_cgro{eorhlap!ii}lc__feecn
 
-After 13 iterations of the caesar cipher
+After 13 rails in the rails fence cipher
