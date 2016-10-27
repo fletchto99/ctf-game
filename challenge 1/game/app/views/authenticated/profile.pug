@@ -3,22 +3,26 @@ extends ../layout_auth
 append content
     if error
         h1=error
+    h4 Leave any fields you do not wish to change empty
     form(name="profile", method="post")
-        span Leave any fields you do not wish to change empty
-        div.input
-            span.label First name
-            input(type="text", name="first_name")
-        div.input
-            span.label Lastname name
-            input(type="text", name="last_name")
-        div.input
-            span.label Email
-            input(type="text", name="email")
-        div.input
-            span.label New Password (leave empty if you do not wish to change)
-            input(type="password", name="password")
-        div.input
-            span.label Confirm New Password
-            input(type="password", name="confirm_password")
-        div.actions
-            input(type="submit", value="Update")
+        div.form-group
+            div.input
+                label(for="first_name") First name
+                input.form-control(type="text", name="first_name", id="first_name")
+        div.form-group
+            div.input
+                label(for="last_name") Last name
+                input.form-control(type="text", name="last_name", id="last_name")
+        div.form-group
+            div.input
+                label(for="email") email
+                input.form-control(type="text", name="email", id="email")
+        div.form-group
+            div.input
+                label(for="password") New Password
+                input.form-control(type="password", name="password", id="password")
+        div.form-group
+            div.input
+                label(for="confirm_password") Confirm New Password
+                input.form-control(type="password", name="confirm_password", id="confirm_password")
+        button.btn.btn-primary(type="submit") Update
