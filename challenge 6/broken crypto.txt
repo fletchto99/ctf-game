@@ -1,4 +1,4 @@
-flag{I_like_caesar_salad}
+flag{rail_fence_cipher_is_cool!}
 
 becomes
 
