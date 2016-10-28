@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SolveMeSolved {
+public class SolveMeSolvedAdvanced {
 
     public static void main(String[] args) {
         System.out.println("The password is:");
@@ -22,11 +22,9 @@ public class SolveMeSolved {
 
         ArrayList<String> passwords = new ArrayList<>();
 
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
-
         for (int aByte : bytes) {
             int offset = 0;
-            for (char c : chars.toCharArray()) {
+            for (char c = 0; c < Character.MAX_VALUE; c++) {
                 int result = 0;
                 result += (((((c & 0x1) << 2) & 0x7) >> 1) << 5);
                 result += (((((~(((c & 0x10) << 7) | 0xff) ^ c) & 0x40) >> 2) << 3) >> 5);

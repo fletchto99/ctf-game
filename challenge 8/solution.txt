@@ -1,0 +1,10 @@
+This was actually a problem I faced & solved at CSGames 2016, though mine has been slightly modified.
+
+Essentially the solution works by doing the reverse of what the algorithm does:
+
+1. Add the current character to the total result. (the subtractor? of the original algorithm)
+2. Divide by 1337 (the multiplier for the original algorithm)
+   Special Note: before dividing we must mod the "result" number by 1337. We know that if the number is 0, then it divides evenly into the "result" thus being the optimal case. 
+                 Since 1337 is greater than any of the ASCII values for the characterset given this means there will only be 1 solution (1 character) that will work for that case
+3. Rinse & repeat with the new number until we reach the base case which is 42
+4. Finally the password must be reversed since we applied the algorithm in reverse.

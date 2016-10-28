@@ -1,0 +1,9 @@
+This was actually a problem I faced & solved at CSGames 2016.
+
+Essentially the solution works by bruteforcing the correct characters through the algorithm. Since computers are very fast and we are working with such a limited characterset it is quite trivial for a computer to solve quickly.
+
+Since each byte in the "encrypted" password represents 1 byte in the final we can look at each byte individually, sending 1 character at a time from the accepted character set through the algorithm.
+
+According to the password checker if the (result & 0ff) == encryped[i] then the password is valid. So We can apply the same logic, if the (result & 0ff) == encryped[i] then we've found our character if not then we try the next character in the character set.
+
+A fun little side note: Removing the character set restriction reveals that there are hundreds of passwords that are valid. See SolveMeSolvedAdvanced.java
