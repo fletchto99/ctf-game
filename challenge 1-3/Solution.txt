@@ -1,0 +1,8 @@
+1. The robots.txt is being used to hide the admin file which contains the employee referral codes. Going there reveals an employee referal code which has been base 64 encoded: flag{welcome_to_the_game}
+2. Once inside the game the authenticated pages look like /dashboard?page=<page> from this we can inject data into <page> to access files through local file inclusion. Accessing the ../config.ini file reveals flag{local_file_inclusion_is_annoying}
+3. This last one is quite complex, it involves 2 stages
+
+Stage 1: Identifiying XSS in the bot. The bot auto reads the message thus executing arbitrary code. If you try to dump the document.cookie it just says HAHA NICE TRY!
+Stage 2: The profile page only requires a new password but doesn't ask for your old password, thus confirming the presence of a CSRF vulnerability
+
+Using stage 2 as the payload to send to stage 1 you are able to change the administators password and gain access to that account revealing the final flag: flag{csrf_is_dangerous}

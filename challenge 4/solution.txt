@@ -1,0 +1,4 @@
+Run: gcc -pthreads -o root cowroot.c
+Then: ./root
+
+You will now have a root shell.

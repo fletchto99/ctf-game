@@ -1,0 +1,3 @@
+flag{madagascar}
+
+There is actually a second JPG image which starts after the end of the first. By walking over the binary binwalk will find a magic number for the JPG format at 1E96A. Extracting data from that point on will yeild a second image
