@@ -1,0 +1,9 @@
+This program is vulnerable to a buffer overflow. It is compiled is little endian mode so the byes of an integer are read from left to right
+
+The program allocates 12 bytes for the buffer but then reads 16, thus the 4 bytes overflow into the integer test. 
+
+Next you need to make test look like 664c617, which converts to fLaG. Since integer values are little endian it must be reversed in the overflow
+
+Thus the overflow must look like [12 bytes]GaLf or AAAAAAAAAAAAGaLf
+
+This will cause the readfile function to execute printing: flag{buffer_overflows_are_bad}
