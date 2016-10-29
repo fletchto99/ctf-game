@@ -1,4 +1,9 @@
-Run: gcc -pthreads -o root cowroot.c
+SFTP cowroot.c to the server
+SSH to the server using the provided creds for the box
+
+Run: gcc -pthread -o root cowroot.c
 Then: ./root
 
 You will now have a root shell.
+
+cat /home/flaw/flag.txt
