@@ -1,0 +1,1 @@
+Great you've got the admin's username. See if you can gain access to his account to grab the final flag. An insider told us that he has a bot running which automatically sorts his emails for him, perhaps we can exploit this?

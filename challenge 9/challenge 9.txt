@@ -1,0 +1,5 @@
+This flag is optional and does not have any points, since it is difficult to complete on windows!
+
+Which country is Russia planning on attacking?
+
+Format is flag{country} where country is all lower case.

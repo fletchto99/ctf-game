@@ -1,0 +1,5 @@
+ssh -p flaw flaw@old.ctf-game.xyz
+
+SFTP is enabled
+
+cat /home/flaw/flag.txt

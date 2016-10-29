@@ -1,0 +1,7 @@
+An insider told us a flawed binary can get us access to a flag! He managed to get the source for the program but the admin kicked him off before he could get the flag. See if you can complete the job!
+
+The program is listening at portal.ctf-game.xyz:8080
+
+Perhaps this might help?
+
+bin1: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.32, BuildID[sha1]=2fb575606dca7b380a37907aaf8e5138fd588310, not stripped

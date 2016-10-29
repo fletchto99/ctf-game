@@ -1,0 +1,5 @@
+Try and figure out the password to this program!
+
+We heard that the flag only contains lowercase letters, uppercase letters, digits and underscores.
+
+The flag should look like flag{password}
