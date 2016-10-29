@@ -4,7 +4,7 @@ CTF game is a mini-CTF challenge I made for the University of Ottawa. It was mad
 
 ## How to Run
 
-Challenges 1-3 required you to build a postgres database using the build script found in the database directory.
+Challenges 1-3 required you to build a postgres database using the build script found in the database directory. Create the configs in game/config using the sample configs provided. Then run the app by doing `node app` in the game directory.
 
 Challenge 4 required a flag.txt owned and read only by root file in a lower privileged user's home directory. The server needed to be out of date and vulnerable to dirtycow. The idea was to exploit dirty cow to read the flag.txt file.
 
